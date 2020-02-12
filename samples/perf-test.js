@@ -32,6 +32,13 @@ const params =
     mnemonic: 'desert maple evoke popular trumpet beach primary decline visit enhance dish drink excite setup public forward ladder girl end genre symbol alter category choose',
     endpoint: "http://localhost:1317",
     chain_id: "bluzelle"
+
+    // docker
+    // address: 'cosmos1atcvk8a7vdelpap9n6axqln5y2smkr3mdcwsf5',
+    // mnemonic: 'indicate floor morning fetch expect sand fox pipe feel lake bulk tattoo attract grocery swing timber menu prevent month claw version praise amused rebuild',
+    // endpoint: "http://localhost:1317",
+    // chain_id: "integration"
+
 };
 
 function now()

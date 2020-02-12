@@ -1,12 +1,13 @@
 #!/usr/bin/node
 
-//import axios from 'axios'
-//import moxios from 'moxios'
+import axios from 'axios'
+import moxios from 'moxios'
 //import sinon from 'sinon'
 
-const { axios } = require('axios');
-const { moxios } = require('moxios');
-const { bluzelle } = require('bluzelle');
+// const axios = require('axios');
+// const moxios = require('moxios');
+
+const { bluzelle } = require('../lib/bluzelle-node');
 
 const gas_params = {'gas_price': '0.01'};
 
@@ -18,37 +19,43 @@ describe('testing api', () =>
 {
     beforeEach(() =>
     {
-        moxios.install(http)
+        moxios.install();
     });
     afterEach(() =>
     {
-        moxios.uninstall(http)
+        moxios.uninstall();
     });
 
-    it('test get', async () =>
+    it('test get', () =>
     {
-        var bz = await bluzelle({
+        bluzelle({
             address: 'cosmos1zuxcvpkxlzf37dh4k95e2rujmy9sxqvxhaj5pn',
             mnemonic: 'desert maple evoke popular trumpet beach primary decline visit enhance dish drink excite setup public forward ladder girl end genre symbol alter category choose',
             endpoint: "http://localhost:1317",
             chain_id: "bluzelle"
-        });
+        }).then(function(bz)
+        {
+    //        moxios.stubRequest((`${app_endpoint}/auth/accounts/cosmos1zuxcvpkxlzf37dh4k95e2rujmy9sxqvxhaj5pn`),
+    //         moxios.stubRequest(('.*/auth/accounts/.*'),
+    //         {
+    //             status: 200,
+    //             responseText: '{"key" : "mykey", "value" " : "myvalue"}'
+    //         });
 
+    //        moxios.stubRequest((`${app_endpoint}${app_service}/read/cosmos1zuxcvpkxlzf37dh4k95e2rujmy9sxqvxhaj5pn/mykey`),
+    //         moxios.stubRequest(('.*/read/.*'),
+    //             {
+    //                 status: 200,
+    //                 responseText: '{"key" : "mykey", "value" " : "myvalue"}'
+    //             });
 
-        const expectedPosts = ['Post1', 'Post2'];
-
-        moxios.stubRequest((`${app_endpoint}${app_service}/read/cosmos1zuxcvpkxlzf37dh4k95e2rujmy9sxqvxhaj5pn/mykey`),
+            bz.quickread("mykey").then(function(res)
             {
-                status: 200,
-                responseText: '{"key" : "mykey", "value" " : "myvalue"}'
+                expect(res).toEqual("myvalue");
             });
 
-        // moxio.wait(function()
-        // {
-        //
-        // });
+            done();
+        });
 
-        const res = await bz.quickread("mykey");
-        expect(res).toEqual("myvalue");
     });
 });
